@@ -65,3 +65,14 @@ Inline Delete Headers Should Not Persist
     Delete    /delete
     ${headers2}=    String    request headers    skip=true
     Should Not Be Equal    ${headers1}    ${headers2}
+
+Remove headers
+    [Setup]    Set headers    { "Authorization": "Bearer ${oauth_token}" }
+    Get    /get
+    ${headers1}=    String    request headers    skip=true
+    Remove headers   [ "Authorization" ]
+    Get    /get
+    ${headers2}=    String    request headers    skip=true  
+    Should Not Be Equal    ${headers1}    ${headers2}
+    Dictionary Should Contain Key    ${headers1}[0]    Authorization
+    Dictionary Should Not Contain Key    ${headers2}[0]    Authorization
