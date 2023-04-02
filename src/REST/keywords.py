@@ -123,6 +123,20 @@ class Keywords:
         self.request["headers"].update(self._input_object(headers))
         return self.request["headers"]
 
+@keyword(name="Remove Headers", tags=("settings",))
+    def remove_headers(self, headers):
+        """*Remove exising header(s).*
+
+        ``headers``: The header(s) to remove as a json, or a dict.
+
+        *Examples*
+        | `Remove Headers` |  [ "Authorization" ] |
+        | `Remove Headers` |   ${auth_dict} |
+          """
+        for header in [header for header in self._input_array(headers) if self.request["headers"].get(header)]:
+            del self.request["headers"][header]
+        return self.request["headers"] 
+    
     @keyword(name="Expect Request", tags=("expectations",))
     def expect_request(self, schema, merge=False):
         """*Sets the schema to validate the request properties*
