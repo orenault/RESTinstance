@@ -123,7 +123,7 @@ class Keywords:
         self.request["headers"].update(self._input_object(headers))
         return self.request["headers"]
 
-@keyword(name="Remove Headers", tags=("settings",))
+    @keyword(name="Remove Headers", tags=("settings",))
     def remove_headers(self, headers):
         """*Remove exising header(s).*
 
